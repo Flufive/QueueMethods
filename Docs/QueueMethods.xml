@@ -1,0 +1,277 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>QueueMethods</name>
+    </assembly>
+    <members>
+        <member name="T:QueueMethods.Utils">
+            <summary>
+            Utils.
+            </summary>
+        </member>
+        <member name="M:QueueMethods.Utils.Length``1(Unit4.CollectionsLib.Queue{``0})">
+            <summary>
+            Gets the length of the queue
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="q">Your queue</param>
+            <returns>The length of the queue</returns>
+        </member>
+        <member name="M:QueueMethods.Utils.ToQueue``1(System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+            Turns a range into a queue
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="range">Your range</param>
+            <returns>A queue with all elements in the range</returns>
+        </member>
+        <member name="M:QueueMethods.Utils.EnqueueRange``1(Unit4.CollectionsLib.Queue{``0},System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+            Enqueues a whole range/collection into the queue
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="q">Your queue</param>
+            <param name="range">The collection you want to add</param>
+        </member>
+        <member name="M:QueueMethods.Utils.DequeueToList``1(Unit4.CollectionsLib.Queue{``0})">
+            <summary>
+            Removes all elements from the queue and returns them in the form of a list
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="q">Your queue</param>
+            <returns>A list containing all elements of the queue</returns>
+            <exception cref="T:System.ArgumentNullException">Thrown when q is null</exception>
+        </member>
+        <member name="M:QueueMethods.Utils.Contains``1(Unit4.CollectionsLib.Queue{``0},``0)">
+            <summary>
+            Finds whether an element is contained within a queue
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="q">Your queue</param>
+            <param name="element">The element you want to find</param>
+            <exception cref="T:System.ArgumentNullException">Thrown when element or q is null</exception>
+            <returns>True if the element is found in the queue, otherwise false</returns>
+        </member>
+        <member name="M:QueueMethods.Utils.PeekAt``1(Unit4.CollectionsLib.Queue{``0},System.Int32)">
+            <summary>
+            Peeks at the element at an index within the queue
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="q">Your queue</param>
+            <param name="index">The index you want to look at</param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">Thrown when index is larger than queue length or is negative</exception>
+            <exception cref="T:System.ArgumentNullException">Thrown when q is null</exception>
+        </member>
+        <member name="M:QueueMethods.Utils.ToArray``1(Unit4.CollectionsLib.Queue{``0})">
+            <summary>
+            Returns the given queue in array form
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="q">The queue to convert into an array</param>
+            <returns>An array form of the queue</returns>
+        </member>
+        <member name="M:QueueMethods.Utils.CopyTo``1(Unit4.CollectionsLib.Queue{``0},``0[],System.Int32)">
+            <summary>
+            Copies a Queue into a given Array
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="q">Your queue</param>
+            <param name="arr">The array to copy to</param>
+            <param name="index">The index to start at</param>
+            <exception cref="T:System.ArgumentOutOfRangeException">Thrown when index is outside of the Array, or Array can't fit the whole Queue</exception>
+            <exception cref="T:System.ArgumentNullException">Thrown when either Array or Queue is null</exception>
+        </member>
+        <member name="M:QueueMethods.Utils.Clear``1(Unit4.CollectionsLib.Queue{``0}@)">
+            <summary>
+            Removes all elements from the queue
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="q">Your queue</param>
+        </member>
+        <member name="M:QueueMethods.Utils.GetLast``1(Unit4.CollectionsLib.Queue{``0})">
+            <summary>
+            Gets the last element in a queue
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="q">Your queue</param>
+            <returns>The last element in the queue</returns>
+            <exception cref="T:System.ArgumentNullException">Thrown when q is null</exception>
+        </member>
+        <member name="M:QueueMethods.Utils.RemoveLast``1(Unit4.CollectionsLib.Queue{``0})">
+            <summary>
+            Removes the last element from the Queue and returns it
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="q">Your queue</param>
+            <returns>The last element in the queue</returns>
+            <exception cref="T:System.ArgumentNullException">Thrown when q is null</exception>
+            <exception cref="T:System.ArgumentException">Thrown when q is empty</exception>
+        </member>
+        <member name="M:QueueMethods.Utils.Reverse``1(Unit4.CollectionsLib.Queue{``0})">
+            <summary>
+            Reverses the given queue
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="q">Your queue</param>
+            <exception cref="T:System.ArgumentNullException">Thrown when q is null</exception>
+        </member>
+        <member name="M:QueueMethods.Utils.Sort``1(Unit4.CollectionsLib.Queue{``0}@)">
+            <summary>
+            Sorts a queue using the default comparer
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="q">The queue you want to sort (ref keyword)</param>
+        </member>
+        <member name="M:QueueMethods.Utils.TrimExcess``1(Unit4.CollectionsLib.Queue{``0}@)">
+            <summary>
+            Deletes all duplicates from the queue
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="q">Your queue (ref keyword, obviously)</param>
+            <exception cref="T:System.ArgumentNullException">Thrown when q is null</exception>
+        </member>
+        <member name="M:QueueMethods.Utils.RemoveAt``1(Unit4.CollectionsLib.Queue{``0}@,System.Int32)">
+            <summary>
+            Removes the element at the given index
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="q">Your queue</param>
+            <param name="index">The index you want to remove the element att</param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentNullException">Thrown when q is null</exception>
+            <exception cref="T:System.ArgumentException">Thrown when q is empty</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">Thrown when index is outside the bounds of q</exception>
+        </member>
+        <member name="M:QueueMethods.Utils.RemoveVal``1(Unit4.CollectionsLib.Queue{``0}@,``0)">
+            <summary>
+            Removes an element which matches the given element
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="q">Your queue</param>
+            <param name="value">The value you want to remove</param>
+            <exception cref="T:System.ArgumentNullException">Thrown when q is null</exception>
+            <returns>True if the value was found and removed, otherwise false</returns>
+        </member>
+        <member name="M:QueueMethods.Utils.AddAt``1(Unit4.CollectionsLib.Queue{``0}@,System.Int32,``0)">
+            <summary>
+            Adds a given element into the queue in a given index
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="q">Your queue</param>
+            <param name="index">The index you want to add to</param>
+            <param name="value">Your element</param>
+            <exception cref="T:System.ArgumentNullException">Thrown when q is null</exception>
+            <exception cref="T:System.ArgumentException">Thrown when q is empty</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">Thrown when index is outside of the bounds of q</exception>
+        </member>
+        <member name="M:QueueMethods.Utils.Merge``1(Unit4.CollectionsLib.Queue{``0}@,Unit4.CollectionsLib.Queue{``0})">
+            <summary>
+            Merges 2 queues together into one
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="q1">The first queue</param>
+            <param name="q2">The second queue</param>
+            <returns>A new queue composed of the first and second queues</returns>
+            <exception cref="T:System.ArgumentNullException">Thrown when either q1 or q2 is null</exception>
+        </member>
+        <member name="M:QueueMethods.Utils.GetRange``1(Unit4.CollectionsLib.Queue{``0},System.Int32,System.Int32)">
+            <summary>
+            Returns a list from the specified index at the length of count
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="q">Your queue</param>
+            <param name="index">Starting index</param>
+            <param name="count">Length of range</param>
+            <returns>A range (list) starting at index, with the length of {count}</returns>
+            <exception cref="T:System.ArgumentNullException">Thrown when q is null</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">Thrown when index is outside of the bounds of q</exception>
+            <exception cref="T:System.ArgumentException">Thrown when count is either non-positive, or too large in regards to index</exception>
+        </member>
+        <member name="M:QueueMethods.Utils.Find``1(Unit4.CollectionsLib.Queue{``0},System.Predicate{``0})">
+            <summary>
+            Searches for elements that match the conditions defined by the specified predicate
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="q">Your queue</param>
+            <param name="match">The given predicate</param>
+            <exception cref="T:System.ArgumentNullException">Thrown when either q or match is null</exception>
+            <returns>A list which contains all the elements that match the conditions defined by the predicate, otherwise []</returns>
+        </member>
+        <member name="M:QueueMethods.Utils.ConvertAll``2(Unit4.CollectionsLib.Queue{``0},System.Converter{``0,``1},Unit4.CollectionsLib.Queue{``1}@)">
+            <summary>
+            Converts all elements of the input queue to the specified result type using the provided converter function.
+            </summary>
+            <typeparam name="TSource">The type of elements in the input queue.</typeparam>
+            <typeparam name="TResult">The type of elements in the result queue.</typeparam>
+            <param name="q">The input queue to be converted.</param>
+            <param name="converter">The converter function that defines the conversion logic.</param>
+            <param name="resultQueue">When this method returns, contains the queue that contains the converted elements.</param>
+            <returns>The queue containing the converted elements.</returns>
+            <exception cref="T:System.ArgumentNullException">Thrown when <paramref name="q"/> or <paramref name="converter"/> is null.</exception>
+        </member>
+        <member name="M:QueueMethods.Utils.Swap``1(Unit4.CollectionsLib.Queue{``0}@,System.Int32,System.Int32)">
+            <summary>
+            Swaps the elements with the given indices within the queue
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="q">Your queue</param>
+            <param name="index1">The first index</param>
+            <param name="index2">The second index</param>
+            <exception cref="T:System.ArgumentNullException">Thrown when q is null</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">Thrown when either index1 or index2 are out of bounds</exception>
+        </member>
+        <member name="M:QueueMethods.Utils.Replace``1(Unit4.CollectionsLib.Queue{``0}@,``0,``0)">
+            <summary>
+            Replaces all instances of a given value with another given value within the queue
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="q">Your queue</param>
+            <param name="valToFind">The value you want to find</param>
+            <param name="valToReplaceWith">The value you want to replace with the value you want to find</param>
+            <exception cref="T:System.ArgumentNullException">Thrown when q is null</exception>
+        </member>
+        <member name="M:QueueMethods.Utils.Replace``1(Unit4.CollectionsLib.Queue{``0}@,``0,System.Predicate{``0})">
+            <summary>
+            Replaces all items within the queue that match a custom logic with a different item
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="q">Your queue</param>
+            <param name="valToReplaceWith">The value you want to replace your items with</param>
+            <param name="match">The predicate by which to judge the items</param>
+            <exception cref="T:System.ArgumentNullException">Thrown when either q or match is null</exception>
+        </member>
+        <member name="M:QueueMethods.Utils.Intersect``1(Unit4.CollectionsLib.Queue{``0},Unit4.CollectionsLib.Queue{``0},System.Collections.Generic.List{``0}@)">
+            <summary>
+            Gets the similar elements between both queues
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="q1">First queue</param>
+            <param name="q2">Second queue</param>
+            <param name="lResult">The list you want to insert the values into</param>
+            <exception cref="T:System.ArgumentNullException">Thrown if either q1 or q2 are null</exception>
+            <returns>A list which contains all the elements which are in both of the given queues</returns>
+        </member>
+        <member name="M:QueueMethods.Utils.Union``1(Unit4.CollectionsLib.Queue{``0},Unit4.CollectionsLib.Queue{``0},System.Collections.Generic.List{``0}@)">
+            <summary>
+            Gets all elements from each queue
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="q1">First queue</param>
+            <param name="q2">Second queue</param>
+            <param name="lResult">The outputted list you want to put the values into</param>
+            <exception cref="T:System.ArgumentNullException">Thrown when either q1 or q2 are null</exception>
+            <returns>A list which represents the Union between both queues</returns>
+        </member>
+        <member name="M:QueueMethods.Utils.Difference``1(Unit4.CollectionsLib.Queue{``0},Unit4.CollectionsLib.Queue{``0},System.Collections.Generic.List{``0}@)">
+            <summary>
+            Gets all elements that are in q1 but not in q2
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="q1">The queue you want to 'detox'</param>
+            <param name="q2">The 'toxin'</param>
+            <param name="lResult">The list containing the Difference between q1 and q2 (stored)</param>
+            <returns>A list containing the Difference between q1 and q2</returns>
+        </member>
+    </members>
+</doc>
