@@ -814,10 +814,17 @@ namespace QueueMethods
         /// <param name="q">Your queue</param>
         /// <param name="valToReplaceWith">The value you want to replace your items with</param>
         /// <param name="match">The predicate by which to judge the items</param>
-        /// <exception cref="ArgumentNullException">Thrown when q is null</exception>
+        /// <exception cref="ArgumentNullException">Thrown when either q or match is null</exception>
         public static void Replace<T>(ref Queue<T> q, T valToReplaceWith, Predicate<T> match)
         {
             ArgumentNullException.ThrowIfNull(q);
+
+            ArgumentNullException.ThrowIfNull(match);
+
+            if (q.IsEmpty())
+            {
+                return;
+            }
 
             System.Collections.Generic.List<T> tmpList = DequeueToList(q); // Convert to list for easier manipulation
 
