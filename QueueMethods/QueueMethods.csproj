@@ -10,6 +10,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="..\.editorconfig" Link=".editorconfig" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Reference Include="Unit4">
       <HintPath>..\..\..\LinkedListUtils\Unit4.dll</HintPath>
     </Reference>

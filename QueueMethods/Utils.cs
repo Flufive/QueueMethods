@@ -18,7 +18,7 @@ namespace QueueMethods
         /// <typeparam name="T"></typeparam>
         /// <param name="q">Your queue</param>
         /// <returns>The length of the queue</returns>
-        public static int Length<T>(Queue<T> q)
+        public static int Length<T>(this Queue<T> q)
         {
             if (q == null) return 0;
 
@@ -69,7 +69,7 @@ namespace QueueMethods
         /// <typeparam name="T"></typeparam>
         /// <param name="q">Your queue</param>
         /// <param name="range">The collection you want to add</param>
-        public static void EnqueueRange<T>(Queue<T> q, System.Collections.Generic.IEnumerable<T> range)
+        public static void EnqueueRange<T>(this Queue<T> q, System.Collections.Generic.IEnumerable<T> range)
         {
             foreach (var item in range)
             {
@@ -84,11 +84,11 @@ namespace QueueMethods
         /// <param name="q">Your queue</param>
         /// <returns>A list containing all elements of the queue</returns>
         /// <exception cref="ArgumentNullException">Thrown when q is null</exception>
-        public static System.Collections.Generic.List<T> DequeueToList<T>(Queue<T> q)
+        public static System.Collections.Generic.List<T> DequeueToList<T>(this Queue<T> q)
         {
             ArgumentNullException.ThrowIfNull(q);
 
-            Clear(ref q);
+            q.Clear();
 
             System.Collections.Generic.List<T> list = new((System.Collections.Generic.IEnumerable<T>)q);
 
@@ -103,7 +103,7 @@ namespace QueueMethods
         /// <param name="element">The element you want to find</param>
         /// <exception cref="ArgumentNullException">Thrown when element or q is null</exception>
         /// <returns>True if the element is found in the queue, otherwise false</returns>
-        public static bool Contains<T>(Queue<T> q, T element)
+        public static bool Contains<T>(this Queue<T> q, T element)
         {
             ArgumentNullException.ThrowIfNull(element);
 
@@ -142,11 +142,11 @@ namespace QueueMethods
         /// <returns></returns>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when index is larger than queue length or is negative</exception>
         /// <exception cref="ArgumentNullException">Thrown when q is null</exception>
-        public static T PeekAt<T>(Queue<T> q, int index)
+        public static T PeekAt<T>(this Queue<T> q, int index)
         {
             ArgumentNullException.ThrowIfNull(q);
 
-            if (index > Length(q) || index < 0)
+            if (index > q.Length() || index < 0)
             {
                 throw new ArgumentOutOfRangeException("index");
             }
@@ -183,14 +183,14 @@ namespace QueueMethods
         /// <typeparam name="T"></typeparam>
         /// <param name="q">The queue to convert into an array</param>
         /// <returns>An array form of the queue</returns>
-        public static T[] ToArray<T>(Queue<T> q)
+        public static T[] ToArray<T>(this Queue<T> q)
         {
             if (q == null)
             {
                 return []; // Queue is empty, return empty array
             }
 
-            T[] ToReturn = new T[Length(q)];
+            T[] ToReturn = new T[q.Length()];
 
             Queue<T> tmp = new();
 
@@ -199,7 +199,8 @@ namespace QueueMethods
                 tmp.Insert(q.Remove());
             }
 
-            for (int i = 0; i < Length(tmp); i++)
+            int length = tmp.Length();
+            for (int i = 0; i < length; i++)
             {
                 ToReturn[i] = tmp.Head(); // Insert temp queue into array
                 q.Insert(tmp.Remove());
@@ -217,14 +218,16 @@ namespace QueueMethods
         /// <param name="index">The index to start at</param>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when index is outside of the Array, or Array can't fit the whole Queue</exception>
         /// <exception cref="ArgumentNullException">Thrown when either Array or Queue is null</exception>
-        public static void CopyTo<T>(Queue<T> q, T[] arr, int index)
+        public static void CopyTo<T>(this Queue<T> q, T[] arr, int index)
         {
             if (index > arr.Length || index < 0)
             {
                 throw new ArgumentOutOfRangeException("index");
             }
 
-            if (arr.Length < Length(q) + index)
+            int qLength = q.Length();
+
+            if (arr.Length < qLength + index)
             {
                 throw new ArgumentOutOfRangeException("arr");
             }
@@ -243,7 +246,7 @@ namespace QueueMethods
                 tmp.Insert(q.Remove());
             }
 
-            for (int i = index; i < index + Length(q); i++)
+            for (int i = index; i < index + qLength; i++)
             {
                 arr[i] = tmp.Head(); // Insert into the array from the index
                 q.Insert(tmp.Remove());
@@ -255,7 +258,7 @@ namespace QueueMethods
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="q">Your queue</param>
-        public static void Clear<T>(ref Queue<T> q)
+        public static void Clear<T>(this Queue<T> q)
         {
             if (q == null)
             {
@@ -275,7 +278,7 @@ namespace QueueMethods
         /// <param name="q">Your queue</param>
         /// <returns>The last element in the queue</returns>
         /// <exception cref="ArgumentNullException">Thrown when q is null</exception>
-        public static T? GetLast<T>(Queue<T> q)
+        public static T? GetLast<T>(this Queue<T> q)
         {
             ArgumentNullException.ThrowIfNull(q);
 
@@ -310,7 +313,7 @@ namespace QueueMethods
         /// <returns>The last element in the queue</returns>
         /// <exception cref="ArgumentNullException">Thrown when q is null</exception>
         /// <exception cref="ArgumentException">Thrown when q is empty</exception>
-        public static T RemoveLast<T>(Queue<T> q)
+        public static T RemoveLast<T>(this Queue<T> q)
         {
             ArgumentNullException.ThrowIfNull(q);
 
@@ -321,7 +324,7 @@ namespace QueueMethods
 
             Queue<T> tmp = new();
 
-            int length = Length(q);
+            int length = q.Length();
 
             while (length-- > 1)
             {
@@ -343,7 +346,7 @@ namespace QueueMethods
         /// <typeparam name="T"></typeparam>
         /// <param name="q">Your queue</param>
         /// <exception cref="ArgumentNullException">Thrown when q is null</exception>
-        public static void Reverse<T>(Queue<T> q)
+        public static void Reverse<T>(this Queue<T> q)
         {
             ArgumentNullException.ThrowIfNull(q);
 
@@ -370,9 +373,9 @@ namespace QueueMethods
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="q">The queue you want to sort (ref keyword)</param>
-        public static void Sort<T>(ref Queue<T> q)
+        public static void Sort<T>(this Queue<T> q)
         {
-            System.Collections.Generic.List<T> list = DequeueToList(q);
+            System.Collections.Generic.List<T> list = q.DequeueToList();
 
             list.Sort();
 
@@ -385,7 +388,7 @@ namespace QueueMethods
         /// <typeparam name="T"></typeparam>
         /// <param name="q">Your queue (ref keyword, obviously)</param>
         /// <exception cref="ArgumentNullException">Thrown when q is null</exception>
-        public static void TrimExcess<T>(ref Queue<T> q)
+        public static void TrimExcess<T>(this Queue<T> q)
         {
             ArgumentNullException.ThrowIfNull(q);
 
@@ -401,7 +404,7 @@ namespace QueueMethods
             Queue<T> tempQueue = new();
 
             // Iterate through the original queue
-            int length = Length(q);
+            int length = q.Length();
             while (length-- > 0)
             {
                 T currentElement = q.Remove();
@@ -414,7 +417,7 @@ namespace QueueMethods
             }
 
             // Clear the original queue
-            Clear(ref q);
+            q.Clear();
 
             // Enqueue elements back to the original queue from tempQueue
             while (!tempQueue.IsEmpty())
@@ -433,7 +436,7 @@ namespace QueueMethods
         /// <exception cref="ArgumentNullException">Thrown when q is null</exception>
         /// <exception cref="ArgumentException">Thrown when q is empty</exception>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when index is outside the bounds of q</exception>
-        public static T RemoveAt<T>(ref Queue<T> q, int index)
+        public static T RemoveAt<T>(this Queue<T> q, int index)
         {
             ArgumentNullException.ThrowIfNull(q);
 
@@ -442,7 +445,7 @@ namespace QueueMethods
                 throw new ArgumentException("The queue cannot be empty", "q");
             }
 
-            int length = Length(q);
+            int length = q.Length();
             int permLength = length;
 
             if (index < 0 || index > length)
@@ -480,11 +483,11 @@ namespace QueueMethods
         /// <param name="value">The value you want to remove</param>
         /// <exception cref="ArgumentNullException">Thrown when q is null</exception>
         /// <returns>True if the value was found and removed, otherwise false</returns>
-        public static bool RemoveVal<T>(ref Queue<T> q, T value)
+        public static bool RemoveVal<T>(this Queue<T> q, T value)
         {            
             ArgumentNullException.ThrowIfNull(q);
 
-            if (!Contains(q,value))
+            if (!q.Contains(value))
             {
                 return false;
             }
@@ -520,7 +523,7 @@ namespace QueueMethods
         /// <exception cref="ArgumentNullException">Thrown when q is null</exception>
         /// <exception cref="ArgumentException">Thrown when q is empty</exception>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when index is outside of the bounds of q</exception>
-        public static void AddAt<T>(ref Queue<T> q, int index, T value)
+        public static void AddAt<T>(this Queue<T> q, int index, T value)
         {
             ArgumentNullException.ThrowIfNull(q);
 
@@ -529,7 +532,7 @@ namespace QueueMethods
                 throw new ArgumentException("The queue cannot be empty", "q");
             }
 
-            int length = Length(q);
+            int length = q.Length();
             int permLength = length;
 
             if (index < 0 || index > length)
@@ -565,7 +568,7 @@ namespace QueueMethods
         /// <param name="q2">The second queue</param>
         /// <returns>A new queue composed of the first and second queues</returns>
         /// <exception cref="ArgumentNullException">Thrown when either q1 or q2 is null</exception>
-        public static Queue<T> Merge<T>(Queue<T> q1, Queue<T> q2)
+        public static Queue<T> Merge<T>(this Queue<T> q1, Queue<T> q2)
         {
             ArgumentNullException.ThrowIfNull(q1);
             ArgumentNullException.ThrowIfNull(q2);
@@ -611,7 +614,7 @@ namespace QueueMethods
         /// <exception cref="ArgumentNullException">Thrown when q is null</exception>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when index is outside of the bounds of q</exception>
         /// <exception cref="ArgumentException">Thrown when count is either non-positive, or too large in regards to index</exception>
-        public static System.Collections.Generic.List<T> GetRange<T>(Queue<T> q, int index, int count)
+        public static System.Collections.Generic.List<T> GetRange<T>(this Queue<T> q, int index, int count)
         {
             ArgumentNullException.ThrowIfNull(q);
             if (q.IsEmpty())
@@ -619,7 +622,7 @@ namespace QueueMethods
                 return [];
             }
 
-            int length = Length(q);
+            int length = q.Length();
 
             if (index >= length || index < 0)
             {
@@ -712,7 +715,7 @@ namespace QueueMethods
         /// <param name="resultQueue">When this method returns, contains the queue that contains the converted elements.</param>
         /// <returns>The queue containing the converted elements.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="q"/> or <paramref name="converter"/> is null.</exception>
-        public static Queue<TResult> ConvertAll<TSource, TResult> (Queue<TSource> q, Converter<TSource,TResult> converter, out Queue<TResult> resultQueue)
+        public static Queue<TResult> ConvertAll<TSource, TResult> (this Queue<TSource> q, Converter<TSource,TResult> converter, out Queue<TResult> resultQueue)
         {
             ArgumentNullException.ThrowIfNull(q);
             ArgumentNullException.ThrowIfNull(converter);
@@ -747,14 +750,14 @@ namespace QueueMethods
         /// <param name="index2">The second index</param>
         /// <exception cref="ArgumentNullException">Thrown when q is null</exception>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when either index1 or index2 are out of bounds</exception>
-        public static void Swap<T> (ref Queue<T> q, int index1, int index2)
+        public static void Swap<T> (this Queue<T> q, int index1, int index2)
         {
             ArgumentNullException.ThrowIfNull (q);
             if (q.IsEmpty()) {
                 return;
             }
 
-            int length = Length(q);
+            int length = q.Length();
 
             if (index1 < 0 || index1 >= length)
             {
@@ -784,10 +787,10 @@ namespace QueueMethods
         /// <param name="valToFind">The value you want to find</param>
         /// <param name="valToReplaceWith">The value you want to replace with the value you want to find</param>
         /// <exception cref="ArgumentNullException">Thrown when q is null</exception>
-        public static void Replace<T> (ref Queue<T> q, T valToFind, T valToReplaceWith)
+        public static void Replace<T> (this Queue<T> q, T valToFind, T valToReplaceWith)
         {
             ArgumentNullException.ThrowIfNull (q);
-            if (!Contains(q, valToFind))
+            if (!q.Contains(valToFind))
             {
                 return; // Value isn't even in the queue, nothing to replace
             }
@@ -817,7 +820,7 @@ namespace QueueMethods
         /// <param name="valToReplaceWith">The value you want to replace your items with</param>
         /// <param name="match">The predicate by which to judge the items</param>
         /// <exception cref="ArgumentNullException">Thrown when either q or match is null</exception>
-        public static void Replace<T>(ref Queue<T> q, T valToReplaceWith, Predicate<T> match)
+        public static void Replace<T>(this Queue<T> q, T valToReplaceWith, Predicate<T> match)
         {
             ArgumentNullException.ThrowIfNull(q);
 
@@ -930,7 +933,7 @@ namespace QueueMethods
         /// <param name="q2">The 'toxin'</param>
         /// <param name="lResult">The list containing the Difference between q1 and q2 (stored)</param>
         /// <returns>A list containing the Difference between q1 and q2</returns>
-        public static System.Collections.Generic.List<T> Difference<T> (Queue<T> q1, Queue<T> q2, out System.Collections.Generic.List<T> lResult)
+        public static System.Collections.Generic.List<T> Difference<T> (this Queue<T> q1, Queue<T> q2, out System.Collections.Generic.List<T> lResult)
         {
             ArgumentNullException.ThrowIfNull(q1);
             ArgumentNullException.ThrowIfNull(q2);
