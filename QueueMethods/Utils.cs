@@ -565,7 +565,7 @@ namespace QueueMethods
         /// <param name="q2">The second queue</param>
         /// <returns>A new queue composed of the first and second queues</returns>
         /// <exception cref="ArgumentNullException">Thrown when either q1 or q2 is null</exception>
-        public static Queue<T> Merge<T>(ref Queue<T> q1, Queue<T> q2)
+        public static Queue<T> Merge<T>(Queue<T> q1, Queue<T> q2)
         {
             ArgumentNullException.ThrowIfNull(q1);
             ArgumentNullException.ThrowIfNull(q2);
@@ -582,17 +582,19 @@ namespace QueueMethods
 
             Queue<T> ToReturn = new();
 
-            Queue<T> tmp1 = q1;
-            Queue<T> tmp2 = q2;
+            System.Collections.Generic.List<T> tmp1 = DequeueToList(q1);
+            System.Collections.Generic.List<T> tmp2 = DequeueToList(q2);
 
-            while (!tmp1.IsEmpty())
+            foreach (var item in tmp1)
             {
-                ToReturn.Insert(tmp1.Remove());
+                ToReturn.Insert(item);
+                q1.Insert(item);
             }
 
-            while (!tmp2.IsEmpty())
+            foreach (var item in tmp2)
             {
-                ToReturn.Insert(tmp2.Remove());
+                ToReturn.Insert(item);
+                q2.Insert(item);
             }
 
             return ToReturn;
@@ -770,7 +772,7 @@ namespace QueueMethods
 
             foreach (var item in tmpList)
             {
-                q.Insert(item); // Put back into queue
+                q.Insert(item);
             }
         }
 
@@ -803,7 +805,7 @@ namespace QueueMethods
 
             foreach (var item in tmpList)
             {
-                q.Insert(item); // Put back into queue
+                q.Insert(item);
             }
         }
 
@@ -839,9 +841,9 @@ namespace QueueMethods
 
             foreach (var item in tmpList)
             {
-                q.Insert(item); // Put back into queue
+                q.Insert(item);
             }
-        }
+         }
 
         /// <summary>
         /// Gets the similar elements between both queues
@@ -864,8 +866,8 @@ namespace QueueMethods
                 return lResult;
             }
 
-            System.Collections.Generic.HashSet<T> hash1 = new (DequeueToList(q1));
-            System.Collections.Generic.HashSet<T> hash2 = new(DequeueToList(q2));
+            System.Collections.Generic.HashSet<T> hash1 = new((System.Collections.Generic.IEnumerable<T>)q1);
+            System.Collections.Generic.HashSet<T> hash2 = new((System.Collections.Generic.IEnumerable<T>)q2);
 
             System.Collections.Generic.IEnumerable<T> intersection = hash1.Intersect(hash2); // Use the existing Intersect method
 
@@ -902,21 +904,15 @@ namespace QueueMethods
 
             if (q1.IsEmpty()) // Union is q2, return only that (as a list)
             {
-                lResult = DequeueToList(q2);
-                foreach (var item in lResult)
-                {
-                    q2.Insert(item);
-                }
+                lResult = new System.Collections.Generic.List<T>((System.Collections.Generic.IEnumerable<T>)q2);
+
                 return lResult;
             }
 
             if (q2.IsEmpty()) // Union is q1, return only that (as a list)
             {
-                lResult = DequeueToList(q1);
-                foreach (var item in lResult)
-                {
-                    q1.Insert(item);
-                }
+                lResult = new System.Collections.Generic.List<T>((System.Collections.Generic.IEnumerable<T>)q1);
+
                 return lResult;
             }
 
@@ -948,19 +944,14 @@ namespace QueueMethods
 
             if (q2.IsEmpty())
             {
-                lResult = DequeueToList(q1);
-
-                foreach (var item in lResult)
-                {
-                    q1.Insert(item);
-                }
+                lResult = new System.Collections.Generic.List<T>((System.Collections.Generic.IEnumerable<T>)q1);
 
                 return lResult;
             }
 
-            var values = new System.Collections.Generic.HashSet<T>(DequeueToList(q1));
+            var values = new System.Collections.Generic.HashSet<T>((System.Collections.Generic.IEnumerable<T>)q1);
 
-            var items2 = new System.Collections.Generic.HashSet<T>(DequeueToList(q2));
+            var items2 = new System.Collections.Generic.HashSet<T>((System.Collections.Generic.IEnumerable<T>)q2);
 
             foreach (var item in values)
             {
@@ -968,12 +959,6 @@ namespace QueueMethods
                 {
                     lResult.Add(item);
                 }
-                q1.Insert(item);
-            }
-
-            foreach (var item in items2)
-            {
-                q2.Insert(item);
             }
 
             return lResult;
