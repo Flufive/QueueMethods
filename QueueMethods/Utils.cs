@@ -151,9 +151,7 @@ namespace QueueMethods
                 throw new ArgumentOutOfRangeException("index");
             }
 
-#pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
-            T item = default; // This cannot be null, as we've thrown errors for those cases
-#pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
+            T? item = default;
 
             Queue<T> tmp = new(); // Fictive
 
@@ -174,9 +172,9 @@ namespace QueueMethods
                 counter++;
                 q.Insert(tmp.Remove());
             }
-#pragma warning disable CS8603 // Possible null reference return
-            return item;
-#pragma warning restore CS8603 // Possible null reference return
+#pragma warning disable CS8603 // Possible null reference return.
+            return item; // Item cannot be null here, as the index is definitely within the bounds of the queue
+#pragma warning restore CS8603 // Possible null reference return.
         }
 
         /// <summary>
