@@ -894,16 +894,6 @@ namespace QueueMethods
 
             System.Collections.Generic.IEnumerable<T> intersection = hash1.Intersect(hash2); // Use the existing Intersect method
 
-            foreach (var item in hash1)
-            {
-                q1.Insert(item);
-            }
-
-            foreach (var item in hash2)
-            {
-                q2.Insert(item);
-            }
-
             lResult = intersection.ToList();
 
             return lResult;
