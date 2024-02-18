@@ -10,6 +10,7 @@ namespace QueueMethods
     /// <summary>
     /// Utils.
     /// </summary>
+    /// 
     public static class Utils
     {
         /// <summary>
@@ -514,6 +515,39 @@ namespace QueueMethods
         }
 
         /// <summary>
+        /// Returns all the elements in parents that the attribute of which match a given value
+        /// </summary>
+        /// <typeparam name="TParent"></typeparam>
+        /// <typeparam name="TChild"></typeparam>
+        /// <param name="parents">Queue of parents</param>
+        /// <param name="childSelector">The method that returns the given attribute of the parent.
+        /// a simple implementation would look like this:
+        /// Public static TChild GetChild()
+        /// ----return this.Child;
+        /// </param>
+        /// <param name="value">The value</param>
+        /// <exception cref="ArgumentNullException">Thrown if either the parents queue or the value are null</exception>
+        /// <returns>An IEnumerable<typeparamref name="TParent"/> which contains all the elements that the attribute of which match the given value</returns>
+        public static System.Collections.Generic.List<TParent> MatchesVal<TParent, TChild>(Queue<TParent> parents, 
+            Func<TParent, TChild> childSelector,
+        TChild value)
+        {
+            ArgumentNullException.ThrowIfNull(parents);
+            ArgumentNullException.ThrowIfNull(value);
+
+            if (parents.IsEmpty())
+            {
+                return [];
+            }
+
+            System.Collections.Generic.List<TParent> newParents = new((System.Collections.Generic.IEnumerable<TParent>)parents);
+
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
+            return newParents.Where(parent => childSelector(parent).Equals(value)).ToList(); // CBA to make sure it isnt null honestly
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
+        }
+
+        /// <summary>
         /// Adds a given element into the queue in a given index
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -642,12 +676,10 @@ namespace QueueMethods
             System.Collections.Generic.List<T> listToReturn = [];
 
             Queue<T> temp = new();
-            Queue<T> temp2 = new();
 
             while (!q.IsEmpty())
             {
                 temp.Insert(q.Head());
-                temp2.Insert(q.Remove());
             }
 
             
@@ -659,12 +691,8 @@ namespace QueueMethods
 
             for (int i = 0; i < count; i++)
             {
-                listToReturn.Add(temp.Remove());
-            }
-
-            while (!temp2.IsEmpty())
-            {
-                q.Insert(temp2.Remove());
+                listToReturn.Add(temp.Head());
+                q.Insert(temp.Remove());
             }
 
             return listToReturn;
@@ -804,10 +832,6 @@ namespace QueueMethods
                 {
                     tmpList[i] = valToReplaceWith; // Replace the values
                 }
-            }
-
-            foreach (var item in tmpList)
-            {
                 q.Insert(item);
             }
         }
@@ -840,10 +864,6 @@ namespace QueueMethods
                 {
                     tmpList[i] = valToReplaceWith; // Replace the values
                 }
-            }
-
-            foreach (var item in tmpList)
-            {
                 q.Insert(item);
             }
          }
